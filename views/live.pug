@@ -1,0 +1,34 @@
+doctype html
+html(prefix='og: http://ogp.me/ns#')
+  head
+    meta(charset='utf-8')
+    meta(name='viewport' content='width=device-width, initial-scale=1.0')
+
+    link(rel='canonical' href='https://lukin.me/live')
+
+    meta(property='og:url' content='https://lukin.me/live')
+    meta(property='og:title' content='Anton Lukin, a nomadic software engineer')
+    meta(property='og:description' content='Interested in building useful things with code. In my free time, like to experiment with new product ideas')
+    meta(name='description' content='Interested in building useful things with code. In my free time, like to experiment with new product ideas')
+
+    style
+      include:uglify-css ../assets/styles.css
+
+    title Anton Lukin, a nomadic software engineer
+
+  body
+    .heading
+      span I have been in
+      strong #{now.place}
+      span for the last #{now.delay}
+
+    .navigate
+      a.back(href='/') Home
+
+    .history
+      each column in columns
+        .column
+          each past in column
+            a.past(href=past.link target='_blank') 
+              strong #{past.place}
+              span for #{past.delay}

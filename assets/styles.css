@@ -1,0 +1,178 @@
+:root {
+  --color-text: #222;
+  --color-accent: #c70202;
+  --color-hover: #fa0000;
+  --color-background: #f4f2f2;
+  --color-light: #333333;
+  --color-dimmed: #777777;
+  --color-separator: rgba(100, 100, 100, 0.25);
+}
+
+html {
+  font: 400 16px/1.625 Georgia, serif;
+}
+
+@media screen and (max-width: 767px) {
+  html {
+    font-size: 14px;
+  }
+}
+
+body {
+  margin: 0;
+  padding: 7vw 5vw 2rem;
+
+  color: var(--color-text);
+  background-color: var(--color-background);
+}
+
+a {
+  text-decoration: none;
+  color: var(--color-accent);
+  transition: color 0.25s;
+}
+
+  a:hover {
+    color: var(--color-hover);
+  }
+
+p {
+  margin: 0 0 1.5rem;
+  font-size: 1.25rem;
+}
+
+.summary {
+  width: 100%;
+  max-width: 38rem;
+}
+
+.navigate {
+  display: flex;
+  align-items: center;
+
+  width: 40rem;
+  max-width: 100%;
+
+  padding: 1.5rem 0;
+}
+
+  .navigate::after {
+    content: '';
+
+    display: block;
+    flex: 0 1 100%;
+    margin-left: 1rem;
+
+    border-bottom: solid 1px var(--color-separator);
+  }
+
+.back {
+  display: flex;
+  align-items: center;
+
+  position: relative;
+}
+
+  .back::before {
+    content: '‹';
+
+    position: absolute;
+    left: -0.875rem;
+
+    font-size: 1.25em;
+    line-height: 1.5;
+
+    transform: translateY(-0.075rem);
+  }
+
+.heading {
+  display: inline;
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+  .heading span {
+    display: block;
+
+    font-size: 1.25rem;
+    color: var(--color-dimmed);
+  }
+
+  .heading strong {
+    display: block;
+
+    font-size: 3.5rem;
+    font-weight: inherit;
+  }
+
+.history {
+  display: flex;
+  justify-content: space-between;
+
+  width: 40rem;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+@media screen and (max-width: 767px) {
+  .history {
+    flex-flow: column nowrap;
+  }
+}
+
+.column {
+  display: block;
+  gap: 1rem 2.5rem;
+
+  margin: 0;
+  padding: 0;
+}
+
+.past {
+  display: flex;
+  align-items: center;
+
+  position: relative;
+  margin: 0 0 1.375rem;
+  font-size: 1.5rem;
+
+  color: var(--color-light);
+}
+
+  .past strong {
+    display: block;
+
+    min-width: 8rem;
+    font-weight: 400;
+
+    transition: color 0.25s;
+  }
+
+  .past span {
+    display: block;
+
+    margin-left: 1.5rem;
+    font-size: 1rem;
+    line-height: 1.52;
+
+    color: var(--color-dimmed);
+    transform: translateY(0.075rem);
+  }
+
+  .past::after {
+    content: '›';
+
+    margin-left: 1rem;
+    font-size: 1.25rem;
+
+    color: var(--color-accent);
+  }
+
+  .past:hover strong {
+    color: var(--color-hover);
+  }
+
+  .past:hover::after {
+    color: var(--color-hover);
+  }
