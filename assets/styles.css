@@ -86,7 +86,7 @@ p {
   }
 
 .heading {
-  display: inline;
+  display: block;
   font-size: inherit;
   font-weight: inherit;
 }

@@ -18,6 +18,11 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
 /**
+ * Show static files from public directory
+ */
+app.use(express.static('public'));
+
+/**
  * Hide specific Express header
  */
 app.disable('x-powered-by');
