@@ -270,6 +270,8 @@
 
   width: 100%;
   margin: 1.5rem 0 1rem;
+
+  color: var(--color-dimmed);
 }
 
   .relocate input {
@@ -280,8 +282,6 @@
     flex: 0 0 100%;
 
     margin: 0.75rem 0 0;
-    font-size: 1.25rem;
-
     color: var(--color-dimmed);
   }
 

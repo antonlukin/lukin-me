@@ -17,12 +17,22 @@
     // Disable button
     button.setAttribute('disabled', 'disabled');
 
+    request.addEventListener('readystatechange', function() {
+      if (request.readyState === 4) {
+        button.removeAttribute('disabled');
+      }
+    });
+
     request.addEventListener('load', function() {
-      console.log(request.response);
+      if (request.status > 200) {
+        return relocate.textContent = 'An unknown error has occurred';
+      }
+
+      document.location.reload();
     });
 
     request.addEventListener('error', function() {
-
+      return relocate.textContent = 'Failed to complete the request';
     });
 
     request.send(payload);
@@ -134,17 +144,23 @@
     request.addEventListener('load', function() {
       var response = request.response;
 
-      if (response.length === 0) {
-        offers.textContent = 'Nothing found';
+      if (request.status > 200) {
+        return offers.textContent = 'An unknown error has occurred';
       }
 
-      for (var i = 0; i < response.length; i++) {
-        showSuggestion(offers, response[i]);
+      const fields = response.fields || [];
+
+      if (fields.length < 1) {
+        return offers.textContent = 'Nothing found';
+      }
+
+      for (var i = 0; i < response.fields.length; i++) {
+        showSuggestion(offers, response.fields[i]);
       }
     });
 
     request.addEventListener('error', function() {
-      offers.textContent = 'Error occured';
+      return offers.textContent = 'Failed to complete the request';
     });
 
     request.send(payload);
@@ -168,7 +184,7 @@
     suggest.append(input);
 
     var button = document.createElement('button');
-    button.textContent = 'Search';
+    button.textContent = 'Check in';
     button.setAttribute('type', 'submit');
     suggest.appendChild(button);
 
