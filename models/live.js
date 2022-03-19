@@ -13,16 +13,8 @@ module.exports = (sequelize, DataTypes) => {
       type: new DataTypes.STRING(2),
       allowNull: false,
     },
-    country: {
-      type: new DataTypes.STRING(2),
-      allowNull: false,
-    },
-    lat: {
-      type: new DataTypes.STRING(16),
-      defaultValue: 0,
-    },
-    lng: {
-      type: new DataTypes.STRING(16),
+    coords: {
+      type: new DataTypes.STRING(32),
       defaultValue: 0,
     },
     from: {

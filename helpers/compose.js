@@ -7,8 +7,9 @@ module.exports = (field) => {
 
   const compose = {
     place: field.place,
+    coords: field.coords,
     delay: differ({from: field.from, to: field.to}),
-    link: `https://www.google.com/maps/@${field.lat},${field.lng},12z`,
+    link: `https://www.google.com/maps/@${field.coords},12z`,
   };
 
   if (compose.delay === 'Dates are the same day') {

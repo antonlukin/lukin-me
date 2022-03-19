@@ -15,16 +15,17 @@ html(prefix='og: http://ogp.me/ns#')
     meta(name='description' content='The history of my travels around the world')
 
     style
-      include:uglify-css ../assets/styles.css
+      include:uglify-css ../styles/common.css
+      include:uglify-css ../styles/live.css
 
     title Live history — Anton Lukin
 
   body
-    .heading
+    a.heading(href=now.link target='_blank')
       span I have been in
       strong #{now.place}
       span for the last #{now.delay}
-
+      
     .navigate
       a.back(href='/') Home
 
@@ -35,3 +36,6 @@ html(prefix='og: http://ogp.me/ns#')
             a.past(href=past.link target='_blank') 
               strong #{past.place}
               span for #{past.delay}
+
+    script
+      include:uglify-js ../scripts/live.js
