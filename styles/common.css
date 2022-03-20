@@ -72,6 +72,10 @@ input {
   border-radius: 0.25rem;
 }
 
+  input[type="date"] {
+    -webkit-appearance: none;
+  }
+
 button {
   cursor: pointer;
 
@@ -80,6 +84,7 @@ button {
 
   font-size: 1.25rem;
   font-family: inherit;
+  font-weight: 400;
 
   color: var(--color-accent);
   background-color: transparent;
