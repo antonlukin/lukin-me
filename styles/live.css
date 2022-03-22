@@ -109,6 +109,7 @@
     display: block;
 
     min-width: 8rem;
+    margin-right: auto;
     font-weight: 400;
 
     transition: color 0.25s;

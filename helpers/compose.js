@@ -8,7 +8,7 @@ module.exports = (field) => {
   const compose = {
     place: field.place,
     coords: field.coords,
-    delay: differ({from: field.from, to: field.to}),
+    delay: differ({from: field.from, to: field.to, days: true}),
     link: `https://www.google.com/maps/@${field.coords},12z`,
   };
 
