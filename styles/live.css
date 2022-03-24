@@ -37,6 +37,7 @@
 
 .heading {
   display: inline-flex;
+  align-self: flex-start;
   flex-flow: column nowrap;
   font-size: inherit;
   font-weight: inherit;
@@ -100,7 +101,7 @@
 
   position: relative;
   margin: 0 0 1.375rem;
-  font-size: 1.5rem;
+  font-size: 1.375rem;
 
   color: var(--color-light);
 }
