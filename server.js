@@ -10,7 +10,7 @@ const models = require('./models');
 const helpers = require('./helpers');
 
 const cities = JSON.parse(
-  fs.readFileSync(path.join(__dirname, 'data/cities.json')),
+  fs.readFileSync(path.join(__dirname, 'data/cities.json'), 'utf-8'),
 );
 
 /**
@@ -55,7 +55,7 @@ app.get('/', async (req, res, next) => {
 
 app.get('/live/', async (req, res, next) => {
   try {
-    let fields = [];
+    let fields;
 
     fields = await models.live.findAll({
       order: [
@@ -69,7 +69,7 @@ app.get('/live/', async (req, res, next) => {
       return helpers.compose(field);
     });
 
-    let recent = [];
+    let recent;
 
     [data.now, ...recent] = fields;
     data.columns = helpers.columns(recent);
@@ -94,6 +94,9 @@ app.post('/suggest/', helpers.authorize(), async (req, res) => {
       if (!city.name.toLowerCase().startsWith(place)) {
         return;
       }
+
+      /** @namespace city.lat **/
+      /** @namespace city.lng **/
 
       const result = {
         name: city.name,
