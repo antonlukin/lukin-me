@@ -124,22 +124,22 @@
     // Disable button
     button.setAttribute('disabled', 'disabled');
 
-    request.addEventListener('readystatechange', function() {
-      if (request.readyState === 4) {
-        button.removeAttribute('disabled');
-      }
-    });
-
     var offers = document.querySelector('.offers');
 
     if (offers !== null) {
       document.body.removeChild(offers);
     }
 
-    offers = document.createElement('div');
-    offers.classList.add('offers');
+    request.addEventListener('readystatechange', function() {
+      if (request.readyState === 4) {
+        button.removeAttribute('disabled');
 
-    document.body.insertBefore(offers, navigate);
+        offers = document.createElement('div');
+        offers.classList.add('offers');
+
+        document.body.insertBefore(offers, navigate);
+      }
+    });
 
     request.addEventListener('load', function() {
       var response = request.response;

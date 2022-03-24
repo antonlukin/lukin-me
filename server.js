@@ -105,7 +105,7 @@ app.post('/suggest/', helpers.authorize(), async (req, res) => {
       results.push(result);
     });
 
-    // Leave some of the results
+    // Leave some results
     results = results.slice(0, 10);
 
     res.status(200).json({fields: results});
