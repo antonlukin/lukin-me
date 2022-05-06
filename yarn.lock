@@ -344,6 +344,11 @@ date-differ@^1.0.1:
   resolved "https://registry.npmjs.org/date-differ/-/date-differ-1.0.1.tgz"
   integrity sha512-r54HoC2NdrONoMoQWX+az0Y2HUlNhNl295E4c5gRfRWC1Ly0JGKbCGQnpb9K3I/KSHZd1kzBEuaMy7MNh3/CzQ==
 
+datetime-diff@^0.2.1:
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/datetime-diff/-/datetime-diff-0.2.1.tgz#7ce0fa3b62d72275812d9c2b91f83488ebec47fc"
+  integrity sha1-fOD6O2LXInWBLZwrkfg0iOvsR/w=
+
 debug@2.6.9:
   version "2.6.9"
   resolved "https://registry.npmjs.org/debug/-/debug-2.6.9.tgz"

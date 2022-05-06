@@ -24,7 +24,7 @@ html(prefix='og: http://ogp.me/ns#')
     a.heading(href=now.link target='_blank')
       span I have been in
       strong #{now.place}
-      span for the last #{now.delay}
+      span for the last #{now.delay > 1 ? now.delay + ' days' : '1 day'}
       
     .navigate
       a.back(href='/') Home
@@ -35,7 +35,7 @@ html(prefix='og: http://ogp.me/ns#')
           each past in column
             a.past(href=past.link target='_blank') 
               strong #{past.place}
-              span for #{past.delay}
+              span for #{past.delay > 1 ? past.delay + ' days' : '1 day'}
 
     script
       include:uglify-js ../scripts/live.js
