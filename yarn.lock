@@ -339,11 +339,6 @@ cross-spawn@^7.0.2:
     shebang-command "^2.0.0"
     which "^2.0.1"
 
-date-differ@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.npmjs.org/date-differ/-/date-differ-1.0.1.tgz"
-  integrity sha512-r54HoC2NdrONoMoQWX+az0Y2HUlNhNl295E4c5gRfRWC1Ly0JGKbCGQnpb9K3I/KSHZd1kzBEuaMy7MNh3/CzQ==
-
 datetime-diff@^0.2.1:
   version "0.2.1"
   resolved "https://registry.yarnpkg.com/datetime-diff/-/datetime-diff-0.2.1.tgz#7ce0fa3b62d72275812d9c2b91f83488ebec47fc"
