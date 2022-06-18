@@ -36,6 +36,8 @@ html(prefix='og: http://ogp.me/ns#')
             a.past(href=past.link target='_blank') 
               strong #{past.place}
               span for #{past.delay > 1 ? past.delay + ' days' : '1 day'}
+    .summary 
+      p Visited #{country} countries and #{place} cities since 2017
 
     script
       include:uglify-js ../scripts/live.js

@@ -284,7 +284,6 @@
     flex: 1 0 auto;
   }
 
-
   .relocate label {
     flex: 0 0 100%;
 
@@ -295,4 +294,20 @@
   .relocate label strong {
     font-weight: 400;
     color: var(--color-text);
+  }
+
+.summary {
+  display: block;
+
+  width: 100%;
+  padding-top: 1rem;
+
+  border-top: solid 1px rgba(0, 0, 0, 0.2);
+}
+
+  .summary p {
+    display: block;
+
+    font-size: 1rem;
+    color: var(--color-dimmed);
   }

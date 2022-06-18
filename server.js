@@ -74,6 +74,16 @@ app.get('/live/', async (req, res, next) => {
     [data.now, ...recent] = fields;
     data.columns = helpers.columns(recent);
 
+    data.place = await models.live.count({
+      distinct: true,
+      col: 'place'
+    });
+
+    data.country = await models.live.count({
+      distinct: true,
+      col: 'country'
+    });
+
     res.render('live', data);
   } catch (err) {
     return next(err);
