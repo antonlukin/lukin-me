@@ -10,7 +10,7 @@ module.exports = (field) => {
   const compose = {
     place: field.place,
     coords: field.coords,
-    delay: Math.floor(between.days),
+    delay: Math.ceil(between.days),
     link: `https://www.google.com/maps/@${field.coords},12z`,
   };
 
