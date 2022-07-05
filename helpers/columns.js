@@ -1,14 +1,27 @@
+const date = require('date-and-time');
+
 module.exports = (history) => {
   const places = {};
 
   history.forEach(item => {
+    const visit = {
+      from: date.format(item.from, 'DD.MM.YYYY', true),
+      to: date.format(item.to, 'DD.MM.YYYY', true),
+    };
+
+    delete item.from;
+    delete item.to;
+
     if (places[item.coords]) {
       places[item.coords].delay += item.delay;
-
-      return;
     }
 
-    places[item.coords] = item;
+    if (!places[item.coords]) {
+      places[item.coords] = item;
+      places[item.coords].visits = [];
+    }
+
+    places[item.coords].visits.push(visit);
   });
 
   const data = [];

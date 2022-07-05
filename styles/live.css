@@ -47,9 +47,11 @@
 
   .heading strong {
     display: block;
+    margin: 0 0 0.25rem;
 
     font-size: 3.5rem;
     font-weight: inherit;
+    line-height: 1.075;
   }
 
   .heading span {
@@ -57,19 +59,6 @@
 
     font-size: 1.25rem;
     color: var(--color-dimmed);
-  }
-
-  .heading span:last-child::after {
-    content: '›';
-
-    margin-left: 1rem;
-    font-size: 1.25rem;
-
-    color: var(--color-accent);
-  }
-
-  .heading:hover span::after {
-    color: var(--color-hover);
   }
 
 .history {
@@ -98,12 +87,21 @@
 .past {
   display: flex;
   align-items: center;
-
   position: relative;
+
+  width: 100%;
   margin: 0 0 1.375rem;
+  padding: 0;
+
+  text-align: left;
+
+  font: inherit;
   font-size: 1.375rem;
 
   color: var(--color-light);
+
+  background-color: transparent;
+  border: 0;
 }
 
   .past strong {
@@ -144,9 +142,32 @@
     color: var(--color-hover);
   }
 
+.visit {
+  display: none;
+  margin: -1.25rem 0 1.5rem 0;
+}
+
+  .visit--visible {
+    display: block;
+  }
+
+  .visit span {
+    display: block;
+
+    font-size: 1em;
+    color: var(--color-dimmed);
+  }
+
+  .visit a {
+    display: inline-block;
+
+    margin: 0.5rem 0 0;
+    font-size: 0.875em;
+  }
+
 .login {
   display: block;
-  position: absolute;
+  position: fixed;
 
   top: 1rem;
   right: 1rem;
@@ -172,6 +193,12 @@
     opacity: 0.75;
   }
 
+  @media screen and (max-width: 767px) {
+    .login {
+      position: absolute;
+    }
+  }
+
 
 .suggest {
   display: flex;
@@ -189,7 +216,33 @@
 
   .suggest button {
     flex: 1 0 auto;
+    height: 3rem;
+    padding: 0 2.5rem;
+
+    font-size: 1.25rem;
+    font-family: inherit;
+    font-weight: 400;
+
+    color: var(--color-accent);
+    background-color: transparent;
+
+    border: solid 1.5px var(--color-accent);
+    border-radius: 0.25rem;
+
+    transition: border 0.25s, color 0.25s;
   }
+
+    .suggest button:hover {
+      color: var(--color-hover);
+      border-color: var(--color-hover);
+    }
+
+    .suggest button:disabled {
+      cursor: progress;
+
+      color: var(--color-dimmed);
+      border-color: var(--color-dimmed);
+    }
 
 .offers {
   display: block;
@@ -309,5 +362,7 @@
     display: block;
 
     font-size: 1rem;
+    line-height: 1.375;
+
     color: var(--color-dimmed);
   }

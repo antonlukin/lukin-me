@@ -208,12 +208,19 @@
 
   document.body.appendChild(login);
 
-  login.addEventListener('click', function(e) {
-    e.preventDefault();
-
+  login.addEventListener('click', function() {
     createPlace();
 
     // Remove login icon
     document.body.removeChild(login);
   });
+
+  var past = document.querySelectorAll('.past');
+
+  for (var i = 0; i < past.length; i++) {
+    past[i].addEventListener('click', function () {
+      this.nextSibling.classList.toggle('visit--visible');
+    });
+  }
+
 })();

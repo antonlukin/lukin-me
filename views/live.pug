@@ -21,7 +21,7 @@ html(prefix='og: http://ogp.me/ns#')
     title Live history — Anton Lukin
 
   body
-    a.heading(href=now.link target='_blank')
+    .heading
       span I have been in
       strong #{now.place}
       span for the last #{now.delay > 1 ? now.delay + ' days' : '1 day'}
@@ -33,11 +33,17 @@ html(prefix='og: http://ogp.me/ns#')
       each column in columns
         .column
           each past in column
-            a.past(href=past.link target='_blank') 
+            button.past(type='button')
               strong #{past.place}
               span for #{past.delay > 1 ? past.delay + ' days' : '1 day'}
-    .summary 
-      p Visited #{country} countries and #{place} cities since 2017
+              
+            .visit
+              each visit in past.visits
+                span #{visit.from} - #{visit.to}
+
+              a(href=past.link target='_blank') Show on the map  ›
+    .summary
+      p Stayed in #{country} countries and #{place} cities since 2017
 
     script
       include:uglify-js ../scripts/live.js

@@ -84,34 +84,7 @@ input {
 
 button {
   cursor: pointer;
-
-  height: 3rem;
-  padding: 0 2.5rem;
-
-  font-size: 1.25rem;
-  font-family: inherit;
-  font-weight: 400;
-
-  color: var(--color-accent);
-  background-color: transparent;
-
-  border: solid 1.5px var(--color-accent);
-  border-radius: 0.25rem;
-
-  transition: border 0.25s, color 0.25s;
 }
-
-  button:hover {
-    color: var(--color-hover);
-    border-color: var(--color-hover);
-  }
-
-  button:disabled {
-    cursor: progress;
-
-    color: var(--color-dimmed);
-    border-color: var(--color-dimmed);
-  }
 
 label {
   display: block;
