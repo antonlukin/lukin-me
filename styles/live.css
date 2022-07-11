@@ -335,7 +335,33 @@
 
   .relocate button {
     flex: 1 0 auto;
+    height: 3rem;
+    padding: 0 2.5rem;
+
+    font-size: 1.25rem;
+    font-family: inherit;
+    font-weight: 400;
+
+    color: var(--color-accent);
+    background-color: transparent;
+
+    border: solid 1.5px var(--color-accent);
+    border-radius: 0.25rem;
+
+    transition: border 0.25s, color 0.25s;
   }
+
+    .relocate button:hover {
+      color: var(--color-hover);
+      border-color: var(--color-hover);
+    }
+
+    .relocate button:disabled {
+      cursor: progress;
+
+      color: var(--color-dimmed);
+      border-color: var(--color-dimmed);
+    }
 
   .relocate label {
     flex: 0 0 100%;
