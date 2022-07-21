@@ -257,10 +257,11 @@
   align-items: center;
   cursor: pointer;
 
-  height: 3rem;
+  min-height: 3rem;
   margin: 0 0 0.5rem;
-  padding: 0 0.5rem;
+  padding: 0.375rem 0.5rem;
   font-size: 1.25rem;
+  line-height: 1.125;
 
   color: var(--color-text);
   background: var(--color-place);
@@ -277,7 +278,7 @@
 
   .place strong {
     display: block;
-    margin-left: 0.625rem;
+    margin: 0 0.625rem;
 
     font-size: 0.875rem;
     font-weight: 400;
@@ -285,6 +286,7 @@
     color: var(--color-accent);
 
     transform: translateY(0.075rem);
+    white-space: nowrap;
   }
 
   .place a {
