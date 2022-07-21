@@ -118,8 +118,11 @@ app.post('/suggest/', helpers.authorize(), async (req, res) => {
       results.push(result);
     });
 
+    // Sort by city name length
+    results.sort((a, b) => a.name.length - b.name.length);
+
     // Leave some results
-    results = results.slice(0, 10);
+    results = results.slice(0, 15);
 
     res.status(200).json({fields: results});
   } catch (err) {
