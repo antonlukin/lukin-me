@@ -39,7 +39,10 @@ html(prefix='og: http://ogp.me/ns#')
               
             .visit
               each visit in past.visits
-                span #{visit.from} - #{visit.to}
+                p 
+                  span #{visit.from} - #{visit.to}
+                  if visit.photo
+                    a.photo(href=visit.photo target='_blank' rel='noopener')
 
               a(href=past.link target='_blank') Show on the map  ›
     .summary

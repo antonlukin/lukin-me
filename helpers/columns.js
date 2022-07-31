@@ -7,6 +7,7 @@ module.exports = (history) => {
     const visit = {
       from: date.format(item.from, 'DD.MM.YYYY', true),
       to: date.format(item.to, 'DD.MM.YYYY', true),
+      photo: item.photo,
     };
 
     delete item.from;
