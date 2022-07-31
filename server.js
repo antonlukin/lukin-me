@@ -171,6 +171,30 @@ app.post('/relocate/', helpers.authorize(), async (req, res) => {
   }
 });
 
+app.post('/decorate/', helpers.authorize(), async (req, res) => {
+  try {
+    if (!req.fields.id) {
+      return res.status(400).json({message: 'ID field is empty'});
+    }
+
+    if (!req.fields.photo) {
+      return res.status(400).json({message: 'Photo field is empty'});
+    }
+
+    await models.live.update({
+      photo: req.fields.photo
+    }, {
+      where: {
+        id: req.fields.id,
+      }
+    });
+
+    res.status(200).json();
+  } catch (err) {
+    res.status(500).json();
+  }
+});
+
 app.use((err, req, res, next) => {
   if (!err) {
     return next();

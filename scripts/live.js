@@ -39,6 +39,43 @@
   }
 
   /**
+   * Submit photo
+   */
+  function submitPicture(decorate, picture) {
+    var payload = new FormData(decorate);
+    payload.append('id', picture.dataset.id);
+
+    var request = new XMLHttpRequest();
+    request.open('POST', decorate.action);
+    request.responseType = 'json';
+
+    var button = decorate.querySelector('button');
+
+    // Disable button
+    button.setAttribute('disabled', 'disabled');
+
+    request.addEventListener('readystatechange', function() {
+      if (request.readyState === 4) {
+        button.removeAttribute('disabled');
+      }
+    });
+
+    request.addEventListener('load', function() {
+      if (request.status > 200) {
+        return decorate.textContent = 'An unknown error has occurred';
+      }
+
+      document.location.reload();
+    });
+
+    request.addEventListener('error', function() {
+      return decorate.textContent = 'Failed to complete the request';
+    });
+
+    request.send(payload);
+  }
+
+  /**
    * Show relocate fields
    */
   function showRelocate(selected) {
@@ -137,7 +174,7 @@
         offers = document.createElement('div');
         offers.classList.add('offers');
 
-        document.body.insertBefore(offers, navigate);
+        document.body.insertBefore(offers, suggest.nextSibling);
       }
     });
 
@@ -200,6 +237,44 @@
     });
   }
 
+  /**
+   * Decorate visit with photo
+   */
+  function decorateVisit(picture) {
+    var decorate = document.createElement('form');
+    decorate.classList.add('decorate');
+    decorate.setAttribute('method', 'POST');
+    decorate.setAttribute('action', '/decorate/');
+
+    document.body.insertBefore(decorate, navigate);
+
+    var input = document.createElement('input');
+    input.setAttribute('type', 'text');
+    input.setAttribute('name', 'photo');
+    input.setAttribute('placeholder', 'Link to image post');
+    decorate.append(input);
+
+    var button = document.createElement('button');
+    button.textContent = 'Add photo';
+    button.setAttribute('type', 'submit');
+    decorate.appendChild(button);
+
+    // Submit form action
+    decorate.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      if (!input.value) {
+        return;
+      }
+
+      return submitPicture(decorate, picture);
+    });
+
+    decorate.scrollIntoView({
+      behavior: 'smooth',
+    });
+  }
+
   var login = document.createElement('button');
 
   login.classList.add('login');
@@ -209,10 +284,13 @@
   document.body.appendChild(login);
 
   login.addEventListener('click', function() {
-    createPlace();
+    var suggest = document.querySelector('.suggest');
 
-    // Remove login icon
-    document.body.removeChild(login);
+    if (suggest === null) {
+      return createPlace();
+    }
+
+    document.body.removeChild(suggest);
   });
 
   var past = document.querySelectorAll('.past');
@@ -223,4 +301,17 @@
     });
   }
 
+  var picture = document.querySelectorAll('.picture');
+
+  for (var j = 0; j < picture.length; j++) {
+    picture[j].addEventListener('click', function() {
+      var decorate = document.querySelector('.decorate');
+
+      if (decorate !== null) {
+        document.body.removeChild(decorate);
+      }
+
+      decorateVisit(this);
+    });
+  }
 })();

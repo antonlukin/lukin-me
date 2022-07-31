@@ -8,6 +8,7 @@ module.exports = (field) => {
   const between = differ(field.from, field.to);
 
   const compose = {
+    id: field.id,
     place: field.place,
     coords: field.coords,
     delay: Math.floor(between.days),

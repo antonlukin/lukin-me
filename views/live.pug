@@ -43,6 +43,8 @@ html(prefix='og: http://ogp.me/ns#')
                   span #{visit.from} - #{visit.to}
                   if visit.photo
                     a.photo(href=visit.photo target='_blank' rel='noopener')
+                  else
+                    button.picture(data-id=visit.id type='button')
 
               a(href=past.link target='_blank') Show on the map  ›
     .summary

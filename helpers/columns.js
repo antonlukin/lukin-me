@@ -5,6 +5,7 @@ module.exports = (history) => {
 
   history.forEach(item => {
     const visit = {
+      id: item.id,
       from: date.format(item.from, 'DD.MM.YYYY', true),
       to: date.format(item.to, 'DD.MM.YYYY', true),
       photo: item.photo,
