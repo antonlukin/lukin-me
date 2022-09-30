@@ -12,11 +12,16 @@ module.exports = (field) => {
     place: field.place,
     coords: field.coords,
     delay: Math.floor(between.days),
-    photo: field.photo,
     from: field.from,
     to: field.to,
     link: `https://www.google.com/maps/@${field.coords},12z`,
   };
+
+  const photos = field.get({ plain: true }).photos;
+
+  if (photos) {
+    compose.photos = photos.map((v) => v.url);
+  }
 
   return compose;
 };

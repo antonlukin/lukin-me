@@ -54,13 +54,14 @@ app.get('/', async (req, res, next) => {
 });
 
 app.get('/live/', async (req, res, next) => {
-  try {
-    let fields;
+  let fields, recent;
 
+  try {
     fields = await models.live.findAll({
       order: [
         ['from', 'DESC'],
       ],
+      include: [models.photo]
     });
 
     const data = {};
@@ -68,8 +69,6 @@ app.get('/live/', async (req, res, next) => {
     fields = fields.map((field) => {
       return helpers.compose(field);
     });
-
-    let recent;
 
     [data.now, ...recent] = fields;
     data.columns = helpers.columns(recent);
@@ -90,7 +89,7 @@ app.get('/live/', async (req, res, next) => {
   }
 });
 
-app.post('/suggest/', helpers.authorize(), async (req, res) => {
+app.post('/suggest/', helpers.authorize(), async (req, res, next) => {
   try {
     let results = [];
 
@@ -126,11 +125,11 @@ app.post('/suggest/', helpers.authorize(), async (req, res) => {
 
     res.status(200).json({fields: results});
   } catch (err) {
-    res.status(500).json();
+    next(err);
   }
 });
 
-app.post('/relocate/', helpers.authorize(), async (req, res) => {
+app.post('/relocate/', helpers.authorize(), async (req, res, next) => {
   try {
     if (!req.fields.coords) {
       return res.status(400).json({message: 'Coords field is empty'});
@@ -167,11 +166,11 @@ app.post('/relocate/', helpers.authorize(), async (req, res) => {
 
     res.status(200).json();
   } catch (err) {
-    res.status(500).json();
+    next(err);
   }
 });
 
-app.post('/decorate/', helpers.authorize(), async (req, res) => {
+app.post('/decorate/', helpers.authorize(), async (req, res, next) => {
   try {
     if (!req.fields.id) {
       return res.status(400).json({message: 'ID field is empty'});
@@ -181,17 +180,14 @@ app.post('/decorate/', helpers.authorize(), async (req, res) => {
       return res.status(400).json({message: 'Photo field is empty'});
     }
 
-    await models.live.update({
-      photo: req.fields.photo
-    }, {
-      where: {
-        id: req.fields.id,
-      }
+    await models.photo.create({
+      url: req.fields.photo,
+      liveId: req.fields.id,
     });
 
     res.status(200).json();
   } catch (err) {
-    res.status(500).json();
+    next(err);
   }
 });
 

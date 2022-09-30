@@ -41,15 +41,15 @@
   /**
    * Submit photo
    */
-  function submitPicture(decorate, picture) {
-    var payload = new FormData(decorate);
+  function submitPicture(form, picture) {
+    var payload = new FormData(form);
     payload.append('id', picture.dataset.id);
 
     var request = new XMLHttpRequest();
-    request.open('POST', decorate.action);
+    request.open('POST', form.action);
     request.responseType = 'json';
 
-    var button = decorate.querySelector('button');
+    var button = form.querySelector('button');
 
     // Disable button
     button.setAttribute('disabled', 'disabled');
@@ -62,14 +62,14 @@
 
     request.addEventListener('load', function() {
       if (request.status > 200) {
-        return decorate.textContent = 'An unknown error has occurred';
+        return form.textContent = 'An unknown error has occurred';
       }
 
       document.location.reload();
     });
 
     request.addEventListener('error', function() {
-      return decorate.textContent = 'Failed to complete the request';
+      return form.textContent = 'Failed to complete the request';
     });
 
     request.send(payload);
@@ -241,37 +241,44 @@
    * Decorate visit with photo
    */
   function decorateVisit(picture) {
-    var decorate = document.createElement('form');
+    var decorate = document.createElement('div');
     decorate.classList.add('decorate');
     decorate.setAttribute('method', 'POST');
     decorate.setAttribute('action', '/decorate/');
-
     document.body.insertBefore(decorate, navigate);
+
+    decorate.addEventListener('click', function(e) {
+      if (e.target === decorate) {
+        document.body.removeChild(decorate);
+      }
+    });
+
+    var form = document.createElement('form');
+    form.setAttribute('method', 'POST');
+    form.setAttribute('action', '/decorate/');
+
+    decorate.appendChild(form);
 
     var input = document.createElement('input');
     input.setAttribute('type', 'text');
     input.setAttribute('name', 'photo');
     input.setAttribute('placeholder', 'Link to image post');
-    decorate.append(input);
+    form.append(input);
 
     var button = document.createElement('button');
     button.textContent = 'Add photo';
     button.setAttribute('type', 'submit');
-    decorate.appendChild(button);
+    form.appendChild(button);
 
     // Submit form action
-    decorate.addEventListener('submit', function(e) {
+    form.addEventListener('submit', function(e) {
       e.preventDefault();
 
       if (!input.value) {
         return;
       }
 
-      return submitPicture(decorate, picture);
-    });
-
-    decorate.scrollIntoView({
-      behavior: 'smooth',
+      return submitPicture(form, picture);
     });
   }
 

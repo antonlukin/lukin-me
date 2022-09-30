@@ -8,7 +8,7 @@ module.exports = (history) => {
       id: item.id,
       from: date.format(item.from, 'DD.MM.YYYY', true),
       to: date.format(item.to, 'DD.MM.YYYY', true),
-      photo: item.photo,
+      photos: item.photos,
     };
 
     delete item.from;
