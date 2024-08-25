@@ -65,11 +65,17 @@ body {
     display: block;
     margin: 0 0 0.25rem;
 
-    font-size: 3.5rem;
+    font-size: 3rem;
     font-weight: inherit;
     line-height: 1.075;
 
     transform: translateX(-0.25rem);
+  }
+
+  @media (max-width: 1023px) {
+    .heading strong {
+      font-size: 2.5rem;
+    }
   }
 
   .heading span {
