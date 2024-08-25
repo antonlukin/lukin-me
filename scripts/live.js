@@ -101,6 +101,7 @@
     var button = document.createElement('button');
     button.textContent = 'Submit';
     button.setAttribute('type', 'submit');
+    button.classList.add('action');
     relocate.appendChild(button);
 
     var label = document.createElement('label');
@@ -223,6 +224,7 @@
     var button = document.createElement('button');
     button.textContent = 'Check in';
     button.setAttribute('type', 'submit');
+    button.classList.add('action');
     suggest.appendChild(button);
 
     // Submit form action
@@ -268,6 +270,7 @@
     var button = document.createElement('button');
     button.textContent = 'Add photo';
     button.setAttribute('type', 'submit');
+    button.classList.add('action');
     form.appendChild(button);
 
     // Submit form action

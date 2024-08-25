@@ -39,13 +39,12 @@ body {
   .back::before {
     content: '‹';
 
-    position: absolute;
-    left: -0.875rem;
+    display: block;
+    margin-left: -1rem;
+    padding-right: 0.5rem;
 
     font-size: 1.25em;
     line-height: 1.5;
-
-    transform: translateY(-0.075rem);
   }
 
 .heading {
@@ -109,7 +108,7 @@ body {
   position: relative;
 
   width: 100%;
-  margin: 0 0 1.375rem;
+  margin: 0 0 1.25rem;
   padding: 0;
 
   text-align: left;
@@ -285,34 +284,7 @@ body {
 
   .suggest button {
     flex: 1 0 auto;
-    height: 3rem;
-    padding: 0;
-    min-width: 12rem;
-
-    font-size: 1.25rem;
-    font-family: inherit;
-    font-weight: 400;
-
-    color: var(--color-accent);
-    background-color: transparent;
-
-    border: solid 1.5px var(--color-accent);
-    border-radius: 0.25rem;
-
-    transition: border 0.25s, color 0.25s;
   }
-
-    .suggest button:hover {
-      color: var(--color-hover);
-      border-color: var(--color-hover);
-    }
-
-    .suggest button:disabled {
-      cursor: progress;
-
-      color: var(--color-dimmed);
-      border-color: var(--color-dimmed);
-    }
 
 .offers {
   display: block;
@@ -409,34 +381,7 @@ body {
 
   .relocate button {
     flex: 1 0 auto;
-    height: 3rem;
-    padding: 0;
-    min-width: 12rem;
-
-    font-size: 1.25rem;
-    font-family: inherit;
-    font-weight: 400;
-
-    color: var(--color-accent);
-    background-color: transparent;
-
-    border: solid 1.5px var(--color-accent);
-    border-radius: 0.25rem;
-
-    transition: border 0.25s, color 0.25s;
   }
-
-    .relocate button:hover {
-      color: var(--color-hover);
-      border-color: var(--color-hover);
-    }
-
-    .relocate button:disabled {
-      cursor: progress;
-
-      color: var(--color-dimmed);
-      border-color: var(--color-dimmed);
-    }
 
   .relocate label {
     flex: 0 0 100%;
@@ -492,7 +437,6 @@ body {
     opacity: 1;;
   }
 
-
 .decorate {
   display: flex;
   flex-flow: row wrap;
@@ -534,34 +478,7 @@ body {
 
   .decorate button {
     flex: 1 0 auto;
-    height: 3rem;
-    padding: 0;
-    min-width: 12rem;
-
-    font-size: 1.25rem;
-    font-family: inherit;
-    font-weight: 400;
-
-    color: var(--color-accent);
-    background-color: transparent;
-
-    border: solid 1.5px var(--color-accent);
-    border-radius: 0.25rem;
-
-    transition: border 0.25s, color 0.25s;
   }
-
-    .decorate button:hover {
-      color: var(--color-hover);
-      border-color: var(--color-hover);
-    }
-
-    .decorate button:disabled {
-      cursor: progress;
-
-      color: var(--color-dimmed);
-      border-color: var(--color-dimmed);
-    }
 
   .decorate label {
     flex: 0 0 100%;
@@ -573,4 +490,33 @@ body {
   .decorate label strong {
     font-weight: 400;
     color: var(--color-text);
+  }
+
+.action {
+  height: 3rem;
+  padding: 0;
+  min-width: 12rem;
+
+  font-size: 1rem;
+  font-family: inherit;
+  font-weight: 400;
+
+  color: var(--color-background);
+  background-color: var(--color-accent);
+
+  border: solid 1.5px var(--color-accent);
+  border-radius: 0.25rem;
+
+  transition: border 0.125s, background-color 0.125s;
+}
+  .action:hover {
+    background-color: var(--color-hover);
+    border-color: var(--color-hover);
+  }
+
+  .action:disabled {
+    cursor: progress;
+
+    color: var(--color-dimmed);
+    border-color: var(--color-dimmed);
   }
