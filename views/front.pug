@@ -21,25 +21,132 @@ html(prefix='og: http://ogp.me/ns#')
     title Anton Lukin — personal page
 
   body
+    header.logo 
+      img(src='/images/avatar.jpg')
+      a(href="/") Anton Lukin
+        span Software Engineer
+      
     .welcome
-      p Hi there!
-      p I am Anton Lukin, a software engineer based in 
-        a(href='/live/') #{now.place}
-        | .
+      p I'm a Full-stack developer at TaxDome, based in 
+        a(href='/live/') Belgrade
+        |. In my free time, I enjoy exploring new technologies and developing pet projects. 
+        | My main priorities at work are knowledge sharing and fostering open communication.
 
-
-      p In my spare time I study new technologies and develop my own projects. 
-        | The most notable of them is the WordPress solutions studio 
-        a(href='https://wpset.org' target='_blank' rel='noopener') wpset.org
-        | , which is engaged in the creation of plugins, themes and translations.
-
-      p I often move around the world and try to live in new places every time. 
-        | Check out the history of my travels in the 
+      p Check out the history of my travels on the 
         a(href='https://lukin.blog' target='_blank' rel='noopener') photo blog
-        | .
-
-      p Follow me on 
-        a(href='https://github.com/antonlukin' target='_blank' rel='noopener') Github
+        |, follow me on 
+        a(href='https://github.com/antonlukin' target='_blank' rel='noopener') GitHub
         | , or get in touch via 
         a(href='https://t.me/lukin' target='_blank' rel='noopener') Telegram
         | .
+
+    .projects 
+      h2 — Projects
+
+      .item
+        a(href='https://wordpress.org/plugins/sharing-image/' target='_blank' rel='nofollow') Sharing Image
+          img(src='/images/projects/sharing-image.png' alt='Sharing Image logo')
+        p WordPress plugin for creating shareable posters on social networks. It allows users to add titles, watermarks, and various filters to images.
+        nav 
+          a(href='https://github.com/antonlukin/sharing-image' target='_blank' rel='noopener') Sources 
+          a(href='https://www.producthunt.com/posts/sharing-image' target='_blank' rel='noopener') Product Hunt
+
+      .item
+        a(href='https://wpset.org/' target='_blank' rel='nofollow') wpset.org
+          img(src='/images/projects/wpset-org.png' alt='wpset.org logo')
+        p A studio specializing in WordPress projects, including plugins, themes, translations and core contributions. 
+          | All created tools are open source and free to redistribute.
+        nav 
+          a(href='https://github.com/antonlukin/wpset' target='_blank' rel='noopener') Sources 
+          a(href='https://wpset.org/about/' target='_blank' rel='noopener') Read more
+
+      .item
+        a(href='https://thisorthat.ru/' target='_blank' rel='nofollow') This or That
+          img(src='/images/projects/thisorthat.png' alt='thisorthat.ru logo')
+        p Adaptation of the game "Would You Rather" into Russian, allowing users to create and answer questions by choosing between two options and see how others have responded.
+        nav 
+          a(href='https://github.com/antonlukin/thisorthat' target='_blank' rel='noopener') Sources 
+          a(href='https://docs.thisorthat.ru/' target='_blank' rel='noopener') Documentation
+
+      .item
+        a(href='https://packagist.org/packages/antonlukin/poster-editor' target='_blank' rel='nofollow') Poster Editor
+          img(src='/images/projects/packagist.png' alt='Packagist logo')
+        p PHP wrapper for the GD Library, designed for easy image manipulation. 
+          | It supports features like scaling multi-line text, applying shapes and filters, smart resizing, and overlaying images, making it ideal for creating customized posters or images programmatically.
+        nav 
+          a(href='https://github.com/antonlukin/poster-editor' target='_blank' rel='noopener') Sources 
+          a(href='https://github.com/antonlukin/poster-editor/blob/master/README.md' target='_blank' rel='noopener') Documentation 
+
+      .item
+        a(href='https://3september.ru' target='_blank' rel='nofollow') 3rd of September
+          img(src='/images/projects/3september.png' alt='3september.ru logo')
+        p A playful and lighthearted homage to the Russian song 3rd of September by Mikhail Shufutinsky, 
+          | which has become a popular internet meme in Russia. 
+          | The website features interactive elements inspired by the song's lyrics and themes, 
+          | such as repeatedly flipping a calendar and karaoke.
+        nav 
+          a(href='https://github.com/antonlukin/3september' target='_blank' rel='noopener') Sources 
+          a(href='https://t.me/s/devup/56' target='_blank' rel='noopener') Read more 
+
+      .item
+        a(href='https://remembrall.app/' target='_blank' rel='nofollow') Remembrall
+          img(src='/images/projects/remembrall.png' alt='remembrall.app logo')
+        p A tool for saving and sharing data via a Telegram bot. 
+          | Users can send notes, links, and other information to the bot, which then stores this data. 
+          | The service allows users to organize their saved content with descriptions and hashtags and provides options to make their data public or keep it private.
+        nav 
+          a(href='https://github.com/antonlukin/remembrall' target='_blank' rel='noopener') Sources 
+          a(href='https://remembrall.app/faq' target='_blank' rel='noopener') How it works 
+
+    .projects 
+      h2 — Contributions
+
+      .item
+        a(href='https://kedr.media/' target='_blank' rel='nofollow') Kedr Media
+          img(src='/images/projects/kedr-media.png' alt='kedr.media logo')
+        p An independent Russian magazine focuses on environmental issues, 
+          | addressing topics such as pollution, deforestation, illegal mining, and the impacts of climate change. 
+          | It provides in-depth reports on environmental damage and how human activities contribute to it.
+
+      .item
+        a(href='https://ton.ski/about/' target='_blank' rel='nofollow') TON.SKI
+          img(src='/images/projects/tonski.png' alt='ton.ski logo')
+        p A platform focused on creating an ecosystem for decentralized websites and storage on The Open Network. 
+          | It offers services such as a search engine for TON sites, domain acquisition, decentralized data storage, and tools for building and hosting secure, censorship-resistant websites.
+
+      .item
+        a(href='https://glasnaya.media/' target='_blank' rel='nofollow') Glasnaya
+          img(src='/images/projects/glasnaya-media.png' alt='glasnaya.media logo')
+        p A social media project dedicated to challenging gender stereotypes and exploring the roles women play in society. 
+          | It focuses on telling the stories of women who defy traditional expectations, whether in a patriarchal setting or a feminist environment, highlighting their unique experiences and perspectives.
+
+      .item
+        a(href='https://formalcrypto.org/' target='_blank' rel='nofollow') Formal Crypto
+          img(src='/images/projects/formalcrypto.png' alt='formalcrypto.org logo')
+        p A digital studio focused on developing projects utilizing blockchain technology, DeFi, and cryptocurrency. 
+          | Formal Crypto team provides expertise in creating tailored solutions for businesses, specializing in secure digital assets and decentralized financial systems.
+
+      .item
+        a(href='https://knife.media/' target='_blank' rel='nofollow') Knife Media
+          img(src='/images/projects/knife-media.png' alt='knife.media logo')
+        p A Russian online magazine that focuses on culture, society, and politics, often tackling sensitive issues from a critical perspective. 
+          | It covers topics such as gender equality, social justice, and the rights of marginalized communities through detailed articles, opinion pieces, and interviews. 
+
+      .item
+        a(href='https://tigers.family/en/' target='_blank' rel='nofollow') Golden Tigers
+          img(src='/images/projects/tigers-family.png' alt='tigers.family logo')
+        p A full-service advertising agency that specializes in creative solutions across digital and offline formats. 
+          | The agency handles everything from formulating innovative ideas to production, placement, and public relations.
+
+      .item
+        a(href='https://cloud.anylogic.com/' target='_blank' rel='nofollow') AnyLogic Cloud
+          img(src='/images/projects/anylogic.png' alt='anylogic.com logo')
+        p A web-based platform designed for running simulation models online. 
+          | It provides a secure environment where users can upload, run, and share simulation models using just a web browser. 
+          | The platform offers rich cloud-based experimentation capabilities, allowing users to conduct complex simulations, manage scenarios, and visualize results through customizable dashboards.
+
+    footer.footer 
+      nav 
+        a(href='/') Linkedin
+        a(href='/') GitHub
+        a(href='/') Telegram
