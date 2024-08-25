@@ -18,14 +18,21 @@ html(prefix='og: http://ogp.me/ns#')
       include:uglify-css ../styles/common.css
       include:uglify-css ../styles/live.css
 
+    style 
+      each area in areas 
+        | #{area}
+
     title Live history — Anton Lukin
 
   body
+    .area 
+      include map.svg
+
     .heading
       span I have been in
       strong #{now.place}
       span for the last #{now.delay > 1 ? now.delay + ' days' : '1 day'}
-      
+
     .navigate
       a.back(href='/') Home
 

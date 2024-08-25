@@ -2,6 +2,16 @@ body {
   max-width: 60rem;
 }
 
+.area {
+  display: block;
+
+  width: 100%;
+  max-width: 48rem;
+  margin: 0 auto 4rem;
+
+  fill: #e1edf0;
+}
+
 .navigate {
   display: flex;
   align-items: center;
@@ -9,7 +19,6 @@ body {
   width: 100%;
   padding: 1.5rem 0;
 }
-
   .navigate::after {
     content: '';
 

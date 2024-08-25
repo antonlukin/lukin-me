@@ -10,6 +10,7 @@ module.exports = (field) => {
   const compose = {
     id: field.id,
     place: field.place,
+    country: field.country,
     coords: field.coords,
     delay: Math.floor(between.days),
     from: field.from,
