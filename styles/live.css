@@ -189,7 +189,8 @@ body {
   }
 
   .visit p > span {
-    min-width: 9rem;
+    display: block;
+    min-width: 10.5rem;
   }
 
   .visit > a {
