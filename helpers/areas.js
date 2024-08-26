@@ -6,6 +6,10 @@ module.exports = (history) => {
     areas[item.country] = areas[item.country] + item.delay;
   });
 
+  areas['UA'] = 6;
+  areas['ES'] = 7;
+  areas['BY'] = 2;
+
   const thresholds = [7, 14, 30, 90, 180, 365];
 
   const colors = [

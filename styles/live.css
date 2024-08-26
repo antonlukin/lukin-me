@@ -9,7 +9,7 @@ body {
   max-width: 48rem;
   margin: 0 auto 4rem;
 
-  fill: #e1edf0;
+  fill: var(--color-area-0);
 }
 
 .navigate {
