@@ -324,4 +324,11 @@
       decorateVisit(this);
     });
   }
+
+  var area = document.querySelector('.area');
+  area.addEventListener('click', function(e) {
+    e.preventDefault();
+
+    area.classList.toggle('area--colorless');
+  });
 })();

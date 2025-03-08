@@ -10,6 +10,21 @@ body {
   margin: 0 auto 4rem;
 
   fill: var(--color-area-0);
+  cursor: pointer;
+}
+
+.area:active {
+  transform: translateY(0.0625rem);
+}
+
+.area.area--colorless {
+  --color-area-1: #094A54;
+  --color-area-2: #094A54;
+  --color-area-3: #094A54;
+  --color-area-4: #094A54;
+  --color-area-5: #094A54;
+  --color-area-6: #094A54;
+  --color-area-7: #094A54;
 }
 
 .navigate {
@@ -153,7 +168,7 @@ body {
     text-align: right;
 
     color: var(--color-dimmed);
-    transform: translateY(0.075rem);
+    transform: translateY(0.0625rem);
   }
 
   .past::after {
@@ -334,7 +349,7 @@ body {
 
     color: var(--color-accent);
 
-    transform: translateY(0.075rem);
+    transform: translateY(0.062rem);
     white-space: nowrap;
   }
 
@@ -512,6 +527,7 @@ body {
 
   border: solid 1.5px var(--color-accent);
   border-radius: 0.25rem;
+  outline: none;
 
   transition: border 0.125s, background-color 0.125s;
 }
