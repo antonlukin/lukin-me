@@ -6,7 +6,7 @@ module.exports = (history) => {
     areas[item.country] = areas[item.country] + item.delay;
   });
 
-  areas['UA'] = 6;
+  areas['UA'] = 15;
   areas['ES'] = 7;
   areas['BY'] = 2;
 
