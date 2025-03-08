@@ -515,9 +515,11 @@ body {
 
   transition: border 0.125s, background-color 0.125s;
 }
-  .action:hover {
-    background-color: var(--color-hover);
-    border-color: var(--color-hover);
+  @media (hover: hover) {
+    .action:hover {
+      background-color: var(--color-hover);
+      border-color: var(--color-hover);
+    }
   }
 
   .action:disabled {

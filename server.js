@@ -83,7 +83,7 @@ app.get('/live/', async (req, res, next) => {
       col: 'country'
     });
 
-    data.areas = helpers.areas(recent);
+    data.areas = helpers.areas(fields);
 
     res.render('live', data);
   } catch (err) {
