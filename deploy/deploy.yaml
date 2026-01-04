@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lukin-me
+  namespace: apps
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: lukin-me
+  template:
+    metadata:
+      labels:
+        app: lukin-me
+    spec:
+      containers:
+        - name: web
+          image: ghcr.io/antonlukin/lukin-me:dev
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 2
+            periodSeconds: 5
+
