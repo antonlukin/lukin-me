@@ -16,7 +16,7 @@
     html {
       height: 100%;
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Ubuntu, 'Open Sans', 'Helvetica Neue', sans-serif;
-      scroll-padding-top: 1.5rem;
+      scroll-padding-top: 2rem;
       scroll-behavior: smooth;
     }
 
@@ -31,16 +31,23 @@
 
     body {
       margin: 0;
-      font-size: 1rem;
+      padding: 0;
+      font-size: 0.875rem;
       line-height: 1.625;
       color: #000;
       background-color: #fff;
     }
 
+    @media screen and (max-width: 767px) {
+        body {
+            font-size: 0.9375rem;
+        }
+    }
+
     main {
       max-width: 50rem;
       margin: 0 auto;
-      padding: 3rem 1.5rem;
+      padding: 1.25rem;
     }
 
     section {
@@ -52,22 +59,22 @@
     }
 
     h1 {
-      margin: 0 0 1.5rem;
-      font-size: 2rem;
+      margin: 1.75rem 0 0.5rem;
+      font-size: 1.5rem;
       font-weight: 500;
       line-height: 1.125;
     }
 
     h2 {
-      margin: 2rem 0 1rem;
-      font-size: 1.625rem;
-      font-weight: 600;
+      margin: 2.75rem 0 1rem;
+      font-size: 1.375rem;
+      font-weight: 500;
       line-height: 1.25;
     }
 
     h3 {
       margin: 1.75rem 0 0.5rem;
-      font-size: 1.1rem;
+      font-size: 1.125rem;
       font-weight: 600;
     }
 
@@ -108,7 +115,7 @@
     hr {
       border: none;
       border-top: 0.0625rem solid #e5e5e5;
-      margin: 0;
+      margin: -0.5rem 0;
     }
 
     .links {
@@ -124,6 +131,7 @@
       grid-template-columns: repeat(3, 1fr);
       gap: 1rem;
       margin: 1.5rem 0 0;
+      padding-bottom: 1rem;
     }
 
     .phones img,
@@ -132,10 +140,10 @@
       width: 100%;
       height: auto;
       border-radius: 1.25rem;
-      box-shadow: 0 0.25rem 1rem rgba(0, 0, 0, 0.08);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08), 0 0 2px rgba(0, 0, 0, 0.08);
     }
 
-    @media (max-width: 599px) {
+    @media (max-width: 767px) {
       .phones,
       .watches {
         display: flex;
@@ -144,12 +152,13 @@
         -webkit-overflow-scrolling: touch;
         gap: 1rem;
         margin: 1.5rem -1.5rem 0;
-        padding: 0 1.5rem 1rem;
+        padding: 0 1.5rem;
+        padding-bottom: 1rem;
       }
 
       .phones img {
         flex: 0 0 auto;
-        width: 70vw;
+        width: 50vw;
         scroll-snap-align: center;
       }
 
@@ -172,7 +181,7 @@
             <p>No network, no cloud, no third-party SDKs. Secrets live in the iOS Keychain, bound to your device passcode. Sync between iPhone and Apple Watch goes through Apple&apos;s peer-to-peer channel – there is no server in the middle.</p>
 
             <p class="links">
-                <a href="https://apps.apple.com/app/idXXXXXXXX" target="_blank" rel="noopener">Download on the App Store</a>
+                <a href="https://apps.apple.com/app/authband/id6770057950" target="_blank" rel="noopener">Download on the App Store</a>
                 <a href="https://github.com/antonlukin/auth-band" target="_blank" rel="noopener">Source on GitHub</a>
             </p>
         </section>
@@ -184,7 +193,7 @@
         </section>
 
         <section>
-            <h2>On the wrist</h2>
+            <h3>On the wrist</h3>
 
             <p>The full account list with live countdown timers lives natively on your Apple Watch. The phone hands the account list to the paired Watch directly through WatchConnectivity – no server in the middle, no third-party relay.</p>
 
