@@ -1,0 +1,177 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<title>Running WordPress in Kubernetes</title>
+<style>
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    max-width: 780px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+    line-height: 1.6;
+    color: #222;
+  }
+  h1 { font-size: 2rem; margin-bottom: 0.25rem; line-height: 1.25; }
+  h2 { margin-top: 1.25rem; border-bottom: 1px solid #ddd; padding-bottom: 0.3rem; line-height: 1.375; }
+  .subtitle { color: #666; margin-bottom: 2rem; }
+  ol {padding-left: 0;}
+  ol li { margin-bottom: 0.2rem;list-style-type: none;padding-left:0; }
+  .slide-label {
+    display: inline-block;
+    background: #2685f0;
+    padding: 0.25rem 0.75rem;
+    border-radius: 4px;
+    font-size: 0.785rem;
+    color: #fff;
+    font-weight: 600;
+    margin-top: 2.5rem;
+  }
+  p { margin: 0.8rem 0; }
+  a { color: #0366d6; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  .slide-image {
+    display: block;
+    width: 100%;
+    max-width: 760px;
+    height: auto;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin: 0.75rem 0 1.25rem 0;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+  }
+  .slide-image-group img + img {
+    margin-top: 1rem;
+  }
+</style>
+</head>
+<body>
+<h1>Running WordPress in Kubernetes</h1>
+<p class="subtitle">Structured HTML version of the talk transcript</p>
+<ol>
+<li><a href="#slide-1">Slide 1. Running WordPress in Kubernetes</a></li>
+<li><a href="#slide-2">Slide 2. What is this presentation about?</a></li>
+<li><a href="#slide-3">Slide 3. To use or not to use</a></li>
+<li><a href="#slide-4">Slide 4. How Kubernetes actually works</a></li>
+<li><a href="#slide-5">Slide 5. WordPress is not stateless</a></li>
+<li><a href="#slide-6">Slide 6. To run WordPress in Kubernetes you must separate the state</a></li>
+<li><a href="#slide-7">Slide 7. WordPress runtime must be disposable</a></li>
+<li><a href="#slide-8">Slide 8. WordPress pods are ephemeral, the database is not</a></li>
+<li><a href="#slide-9">Slide 9. Media Storage Layer</a></li>
+<li><a href="#slide-10">Slide 10. Object Cache Layer: Redis or Memcached</a></li>
+<li><a href="#slide-11">Slide 11. Ingress is not your app layer</a></li>
+<li><a href="#slide-12">Slide 12. Edge Layer: CDN and HTML Caching</a></li>
+<li><a href="#slide-13">Slide 13. Background work belongs outside the web request</a></li>
+<li><a href="#slide-14">Slide 14. Immutable WordPress Deployments</a></li>
+<li><a href="#slide-15">Slide 15. Key Takeaways</a></li>
+</ol>
+<span class="slide-label" id="slide-1">Slide 1</span>
+<h2>Running WordPress in Kubernetes</h2><div class="slide-image-group"><img alt="Slide 1" class="slide-image" src="slides/slide_01.jpg"/></div>
+<p>Zdravo svima! Zovem se Anton Lukin.</p>
+<p>Učim srpski, ali još ne govorim dobro, zato ću danas pričati na engleskom.</p>
+<p>I work as an Engineering Manager at TaxDome. We build a service for accountants and their clients around the world, with a strong focus on the US market. My team works on marketing projects, including the main website, which is of course built on WordPress.</p>
+<p>Before that, I mostly worked in media and advertising agencies, building high-load WordPress sites, some of which handled over 20 million visitors per month. Overall, I have been working with WordPress for more than 15 years, and I still love it.</p>
+<p>Today I want to talk about using Kubernetes with WordPress.</p>
+<span class="slide-label" id="slide-2">Slide 2</span>
+<h2>What is this presentation about?</h2><div class="slide-image-group"><img alt="Slide 2" class="slide-image" src="slides/slide_02.jpg"/></div>
+<p>When I joined my current company, I inherited a WordPress setup running on Kubernetes. Almost immediately I faced a lot of bugs that looked random — stale content here, a missing upload there and so on. Later it became clear they were not random at all. Most of them were related to a misunderstanding of how Kubernetes works.</p>
+<p>A common mistake is thinking Kubernetes itself is the problem. It usually isn’t. The real challenge is the architecture: Kubernetes expects one type of application, while WordPress is a different one.</p>
+<p>That is the core of this talk. I want to explain where the conflict comes from, what problems it causes, and what architecture works if you still want to use Kubernetes.</p>
+<p>Before we continue, let’s answer a simple question: should we run WordPress in Kubernetes?</p>
+<p>The short answer is: no. That's it... I’m joking!</p>
+<span class="slide-label" id="slide-3">Slide 3</span>
+<h2>To use or not to use</h2><div class="slide-image-group"><img alt="Slide 3" class="slide-image" src="slides/slide_03.jpg"/></div>
+<p>For most WordPress sites, Kubernetes adds complexity without clear benefits.</p>
+<p>If you still deploy through FTP or wp-admin, if one server is enough, if you do not have staging or CI, and if your traffic is predictable, Kubernetes probably is not your next next step.</p>
+<p>Without DevOps support, or at least strong infrastructure discipline, it often becomes an expensive way to make simple systems fragile.</p>
+<p>It starts making sense when downtime is not acceptable, when you run multiple environments, when traffic is spiky, and when deployments have to be repeatable.</p>
+<p>What does it mean – repeatable deployments. That means you do not change something manually on a production server. I know, we all love doing that, but in Kubernetes it becomes a problem very quickly: the machine running your code can be replaced at any time, and your manual changes will disappear with it.</p>
+<p>And if you are thinking about leaving because you never plan to use Kubernetes, wait. A lot of what we discuss today applies to any multi-server environment and to high-load WordPress sites in general.</p>
+<p>Now let's talk a bit about Kubernetes.</p>
+<span class="slide-label" id="slide-4">Slide 4</span>
+<h2>How Kubernetes actually works</h2><div class="slide-image-group"><img alt="Slide 4" class="slide-image" src="slides/slide_04.jpg"/></div>
+<p>Before we go deeper, do not think about Kubernetes as something too abstract or scary. At a very simple level, it is a way to run and manage your application across several servers.</p>
+<p>And getting started is not so complicated now. Managed Kubernetes gives you the cluster, and AI can help you write the first configuration. So the basic setup is not the hardest part anymore.</p>
+<p>Servers in Kubernetes are called nodes, and your app runs in smaller units called pods.</p>
+<p>Think of pods as minions. They can be replaced, recreated, scaled, or even killed at any time. Of course, please do not kill actual minions.</p>
+<p>But in Kubernetes, traffic may land on any pod, so every pod should be interchangeable.</p>
+<p>Pods are temporary. If one pod disappears, nothing important should disappear with it.</p>
+<p>But if one pod has files, cache, or changes that the others do not have, the whole model starts to break. </p>
+<p>And this is where WordPress enters the stage.</p>
+<span class="slide-label" id="slide-5">Slide 5</span>
+<h2>WordPress is not stateless</h2><div class="slide-image-group"><img alt="Slide 5" class="slide-image" src="slides/slide_05.jpg"/></div>
+<p>WordPress expects state. And here I mean server-side state: data or files the server must remember between requests.</p>
+<p>For example, imagine a simple page with information about your company. If it only shows text, the page itself has no state. But when you add a contact form, you need to store something: the message, email, maybe an uploaded file. Now you have state.</p>
+<p>WordPress has a lot of this. It uses the database, uploads files, lets plugins write to disk, and often stores cache locally. On a classic single server this feels normal, because that server is a part of the application.</p>
+<p>Kubernetes expects a different model: every pod should behave the same.</p>
+<p>For example, a plugin may enable or disable some feature based on whether a local file exists. If you disable it on one pod, and you have three pods, only one third of your traffic may see the change. We had a real case like this with Redis Cache.</p>
+<span class="slide-label" id="slide-6">Slide 6</span>
+<h2>To run WordPress in Kubernetes you must separate the state</h2><div class="slide-image-group"><img alt="Slide 6" class="slide-image" src="slides/slide_06.jpg"/></div>
+<p>So what do we do? We separate the state. The pod should serve requests, but important data should live outside of it: database, uploads, cache, background jobs, and configuration.</p>
+<p>This diagram is the map for the rest of the talk. We split the WordPress setup into layers and will go through them one by one: runtime, database, media storage, object cache, ingress, edge caching, background work, and deployments.</p>
+<span class="slide-label" id="slide-7">Slide 7</span>
+<h2>WordPress runtime must be disposable</h2><div class="slide-image-group"><img alt="Slide 7" class="slide-image" src="slides/slide_07.jpg"/></div>
+<p>This first layer is the WordPress runtime. It is the part that receives a request, runs PHP, loads WordPress code, and returns HTML.</p>
+<p>In many setups this layer is nginx plus PHP-FPM. In other setups it can be Apache. The exact web server is not the main point.</p>
+<p>If you use nginx and PHP-FPM, it is usually better to keep them in the same pod, because they need access to the same WordPress files: nginx serves static files, and PHP-FPM executes PHP files.</p>
+<p>This layer should be easy to replace. It serves requests, but the important state should live in the next layers. </p>
+<p>The first and most obvious one is the database.</p>
+<span class="slide-label" id="slide-8">Slide 8</span>
+<h2>WordPress pods are ephemeral — the database is not</h2><div class="slide-image-group"><img alt="Slide 8" class="slide-image" src="slides/slide_08.jpg"/></div>
+<p>If WordPress pods are temporary, the database is not. It is the source of truth for content, settings, users, orders, and many other things.</p>
+<p>You can run MySQL inside Kubernetes, but for production it is usually not the first choice. Kubernetes is very good at replacing workloads, while a database needs stable storage, backups, restore procedures, and careful failover. That is why the simplest option is often a managed database like RDS.</p>
+<p>If you do not want to pay for managed database, another practical option is to run MySQL on a separate server in the same private subnet. It is still your responsibility, but at least it is not tied to the pod lifecycle.</p>
+<p>By the way, one example from our practice. We used a managed database for production, but to save money, staging environments used MySQL inside the cluster.</p>
+<p>That created a problem with write speed. Staging behaved differently from production, so we could not correctly estimate load or trust performance checks there.</p>
+<p>The database is only one kind of state. The next one is even more WordPress-specific: uploads.</p>
+<span class="slide-label" id="slide-9">Slide 9</span>
+<h2>Media Storage Layer</h2><div class="slide-image-group"><img alt="Slide 9" class="slide-image" src="slides/slide_09.jpg"/></div>
+<p>The next state layer is media. In WordPress this usually means <code>wp-content/uploads</code>: images, documents, generated thumbnails, and other user files.</p>
+<p>Local pod storage does not work here, because every pod must see the same files. If an image exists only on one pod, some users will see it and some users will not.</p>
+<p>The cleanest option is usually object storage, like S3 or an S3-compatible service. Shared filesystems such as EFS, NFS, or CephFS can also work, especially when plugins expect a normal filesystem.</p>
+<p>You can also keep uploads inside the cluster using a PersistentVolume. I will not go deep into storage modes here, but if you have several nodes, this setup can be tricky.</p>
+<p>So the rule is simple: uploads are state, and all pods must share the same media storage. For production, external object storage is often the easiest model to operate.</p>
+<p>In WordPress, this usually means using a plugin like <code>s3-uploads</code> or building your own solution that sends uploads to S3 or a remote server and serves them from there.</p>
+<span class="slide-label" id="slide-10">Slide 10</span>
+<h2>Object Cache Layer: Redis or Memcached</h2><div class="slide-image-group"><img alt="Slide 10" class="slide-image" src="slides/slide_10.jpg"/></div>
+<p>Cache is state too, but it is performance state: if the cache disappears, the site should slow down, not lose content.</p>
+<p>Maybe you do not need object cache at all. But if you do need it, it is better to store it in shared Redis or Memcached, not inside each pod.</p>
+<p>One nice thing about WordPress is that it does not use PHP sessions by default. Authentication works through cookies. But if a plugin or your own code needs PHP sessions, store them in this layer, because PHP stores sessions as local files by default.</p>
+<p>Page cache is also possible here. Batcache from Automattic is a classic example. But usually rendered HTML cache is moved to another layer, and we will talk about later.</p>
+<span class="slide-label" id="slide-11">Slide 11</span>
+<h2>Ingress is not your app layer</h2><div class="slide-image-group"><img alt="Slide 11" class="slide-image" src="slides/slide_11.jpg"/></div>
+<p>Ingress is the place where traffic enters the cluster before it goes to the application.</p>
+<p>It is not your application layer. Its job is simple: route traffic to WordPress pods, terminate TLS, and stay as stateless as possible.</p>
+<p>Ingress should be boring.</p>
+<span class="slide-label" id="slide-12">Slide 12</span>
+<h2>Edge Layer: CDN and HTML Caching</h2><div class="slide-image-group"><img alt="Slide 12" class="slide-image" src="slides/slide_12.jpg"/></div>
+<p>Now let's reduce the amount of work WordPress has to do.</p>
+<p>A CDN, for example Cloudflare, Fastly, or CloudFront, can cache static assets and HTML before traffic reaches PHP. This is usually the best place for page cache, because it is outside the pods and has one clear invalidation layer.</p>
+<p>Page cache through WordPress plugins is also possible, but it should not write rendered HTML to local pod disk. Store it in Redis, object storage, or another shared storage layer instead.</p>
+<p>We had a painful case where page cache was written to disk on different pods, and then nginx also cached those pages. After "clearing the cache", old content could still live for weeks because it existed in several different places.</p>
+<p>With page cache, invalidation becomes the main problem, and you must be very clear about what should never be cached, like wp-admin or private user pages.</p>
+<p>nginx page cache inside pods is usually not a great fit for the same reason: each pod has its own cache. If CDN caching is not an option, Varnish can be a better place to put shared HTML cache.</p>
+<span class="slide-label" id="slide-13">Slide 13</span>
+<h2>Background work belongs outside the web request</h2><div class="slide-image-group"><img alt="Slide 13" class="slide-image" src="slides/slide_13.jpg"/></div>
+<p>WordPress also has background work. By default, WP-Cron is triggered by web requests: someone opens a page, and WordPress checks if it needs to run scheduled tasks.</p>
+<p>In Kubernetes this is not reliable enough. Jobs can run late, run more than once, or run from a random web pod.</p>
+<p>So use real cron, Kubernetes CronJobs, queues, or workers for sync, imports, notifications, and long-running jobs. The web pod should serve pages; background work should have its own place.</p>
+<span class="slide-label" id="slide-14">Slide 14</span>
+<h2>Immutable WordPress Deployments</h2><div class="slide-image-group"><img alt="Slide 14" class="slide-image" src="slides/slide_14.jpg"/></div>
+<p>The last layer is deployments: how a new version of WordPress code, plugins, themes, and configuration gets to production.</p>
+<p>In this model, changes should go through the build and deployment pipeline. No plugin updates from wp-admin, no quick edits on a production server, and no manual fixes inside a running pod.</p>
+<p>Configuration should also be separate from content. Content belongs in the database. Configuration belongs in code, environment variables, config maps, or secrets.</p>
+<p>Core and plugin updates sometimes need database migrations. Handle them as a controlled deployment step, often with WP-CLI, instead of letting them happen randomly during the first admin request.</p>
+<p>The goal is simple: every deployment should be predictable and repeatable.</p>
+<span class="slide-label" id="slide-15">Slide 15</span>
+<h2>Key Takeaways</h2><div class="slide-image-group"><img alt="Slide 15" class="slide-image" src="slides/slide_15.jpg"/></div>
+<p>Ok! We are at the finish line.</p>
+<p>This presentation was not meant to be a complete guide or step-by-step instruction. At conferences, the goal is usually simpler: to make you interested enough to try something yourself.</p>
+<p>If you have not worked with Kubernetes before, try deploying a small WordPress cluster yourself and think about the layers we discussed today. When I was preparing this talk, it took me just one evening to build a working demo.  And you can do the same.</p>
+<p>Thank you.</p>
+</body>
+</html>
