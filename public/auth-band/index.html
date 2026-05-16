@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en" prefix="og: http://ogp.me/ns#">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="canonical" href="https://lukin.me/auth-band/">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
+  <link rel="icon" type="image/png" sizes="128x128" href="/icon-128.png">
+  <link rel="icon" type="image/png" sizes="256x256" href="/icon-256.png">
+  <meta property="og:url" content="https://lukin.me/auth-band/">
+  <meta property="og:title" content="AuthBand – TOTP authenticator for Apple Watch">
+  <meta property="og:description" content="Two-factor codes on your wrist. No network, no cloud, no third-party SDKs.">
+  <meta name="description" content="Two-factor codes on your wrist. No network, no cloud, no third-party SDKs.">
+  <style>
+    html {
+      height: 100%;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Ubuntu, 'Open Sans', 'Helvetica Neue', sans-serif;
+      scroll-padding-top: 1.5rem;
+      scroll-behavior: smooth;
+    }
+
+    html * {
+      box-sizing: border-box
+    }
+
+    ::after,
+    ::before {
+      box-sizing: inherit
+    }
+
+    body {
+      margin: 0;
+      font-size: 1rem;
+      line-height: 1.625;
+      color: #000;
+      background-color: #fff;
+    }
+
+    main {
+      max-width: 50rem;
+      margin: 0 auto;
+      padding: 3rem 1.5rem;
+    }
+
+    section {
+      margin-bottom: 3rem;
+    }
+
+    section:last-child {
+      margin-bottom: 0;
+    }
+
+    h1 {
+      margin: 0 0 1.5rem;
+      font-size: 2rem;
+      font-weight: 500;
+      line-height: 1.125;
+    }
+
+    h2 {
+      margin: 2rem 0 1rem;
+      font-size: 1.625rem;
+      font-weight: 600;
+      line-height: 1.25;
+    }
+
+    h3 {
+      margin: 1.75rem 0 0.5rem;
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+
+    p {
+      margin: 0 0 1rem;
+    }
+
+    ul {
+      margin: 0 0 1rem;
+      padding: 0 0 0 1.25rem;
+    }
+
+    ul li {
+      margin: 0 0 0.25rem;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+      border-bottom: solid 0.0625rem #aaa;
+      transition: border 0.25s;
+      line-height: 1.375;
+    }
+
+    a:hover {
+      border-bottom-color: transparent;
+    }
+
+    code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 0.9em;
+      background: #f4f4f5;
+      padding: 0.1em 0.35em;
+      border-radius: 0.2em;
+      overflow-wrap: anywhere;
+    }
+
+    hr {
+      border: none;
+      border-top: 0.0625rem solid #e5e5e5;
+      margin: 0;
+    }
+
+    .links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem 1.25rem;
+      margin: 0 0 1rem;
+    }
+
+    .phones,
+    .watches {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin: 1.5rem 0 0;
+    }
+
+    .phones img,
+    .watches img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border-radius: 1.25rem;
+      box-shadow: 0 0.25rem 1rem rgba(0, 0, 0, 0.08);
+    }
+
+    @media (max-width: 599px) {
+      .phones,
+      .watches {
+        display: flex;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        gap: 1rem;
+        margin: 1.5rem -1.5rem 0;
+        padding: 0 1.5rem 1rem;
+      }
+
+      .phones img {
+        flex: 0 0 auto;
+        width: 70vw;
+        scroll-snap-align: center;
+      }
+
+      .watches img {
+        flex: 0 0 auto;
+        width: 50vw;
+        scroll-snap-align: center;
+      }
+    }
+  </style>
+  <title>AuthBand – TOTP authenticator for Apple Watch</title>
+</head>
+
+<body>
+    <main>
+        <section>
+            <h1>AuthBand</h1>
+
+            <p>A TOTP authenticator built for Apple Watch. Add accounts on iPhone, glance at codes on your wrist.</p>
+            <p>No network, no cloud, no third-party SDKs. Secrets live in the iOS Keychain, bound to your device passcode. Sync between iPhone and Apple Watch goes through Apple&apos;s peer-to-peer channel – there is no server in the middle.</p>
+
+            <p class="links">
+                <a href="https://apps.apple.com/app/idXXXXXXXX" target="_blank" rel="noopener">Download on the App Store</a>
+                <a href="https://github.com/antonlukin/auth-band" target="_blank" rel="noopener">Source on GitHub</a>
+            </p>
+        </section>
+
+        <section class="phones">
+            <img src="screens/iphone-copy.png" alt="Account list on iPhone with monospace TOTP codes and Code copied toast" width="1000" height="2173">
+            <img src="screens/iphone-settings.png" alt="Settings: Security toggles, Apple Watch sync, About links" width="1000" height="2173">
+            <img src="screens/iphone-add.png" alt="Add account form with Scan QR Code and Import from Photos" width="1000" height="2173">
+        </section>
+
+        <section>
+            <h2>On the wrist</h2>
+
+            <p>The full account list with live countdown timers lives natively on your Apple Watch. The phone hands the account list to the paired Watch directly through WatchConnectivity – no server in the middle, no third-party relay.</p>
+
+            <div class="watches">
+                <img src="screens/watch-list.png" alt="Account list on Apple Watch, GitHub and Google visible" width="416" height="484">
+                <img src="screens/watch-scrolled.png" alt="Account list scrolled down, Reddit and Notion visible" width="416" height="484">
+                <img src="screens/watch-empty.png" alt="Empty state on Apple Watch when no accounts are synced yet" width="416" height="484">
+            </div>
+        </section>
+
+        <hr>
+
+        <section id="privacy">
+            <h2>Privacy Policy</h2>
+
+            <p><strong>Effective date:</strong> 16 May 2026<br>
+            <strong>Applies to:</strong> AuthBand for iOS and watchOS</p>
+
+            <h3>AuthBand collects nothing</h3>
+
+            <ul>
+                <li>No personal information.</li>
+                <li>No account.</li>
+                <li>No analytics.</li>
+                <li>No crash reports sent anywhere.</li>
+                <li>No advertising identifiers.</li>
+                <li>No usage tracking.</li>
+                <li>No telemetry of any kind.</li>
+            </ul>
+
+            <h3>Where your data lives</h3>
+
+            <p>Everything you put into AuthBand – the issuer name, account label, and TOTP secret of each entry – is stored locally on your iPhone in the iOS Keychain. The Keychain entry uses <code>kSecAttrAccessibleWhenPasscodeSetThisDeviceOnly</code>, which means:</p>
+
+            <ul>
+                <li>The data is bound to your specific device.</li>
+                <li>The data is bound to your device passcode. If you remove your device passcode, iOS deletes the entry automatically.</li>
+                <li>The data is <strong>not</strong> synchronized to iCloud Keychain.</li>
+                <li>The data is <strong>not</strong> included in unencrypted iTunes/Finder backups.</li>
+            </ul>
+
+            <p>When you sync to your paired Apple Watch, the watch keeps an independent local copy in its own Keychain, with the same protection.</p>
+
+            <h3>What AuthBand sends over the network</h3>
+
+            <p>Nothing. AuthBand does not make any network requests. There is no server, no API, no cloud service. The app works entirely offline.</p>
+
+            <p>The only data leaving the iPhone is the WatchConnectivity payload that the operating system delivers to your own paired Apple Watch over the encrypted, peer-to-peer channel that Apple provides for paired devices. AuthBand never sends data to any third party or to the developer.</p>
+
+            <h3>Permissions the app asks for</h3>
+
+            <ul>
+                <li><strong>Camera</strong> – to scan QR codes when adding a new account. The camera is only active while the QR scanner is on screen. No photos or video are saved.</li>
+                <li><strong>Face ID / Touch ID / device passcode</strong> (via <code>LocalAuthentication</code>) – to unlock the app if you have the &quot;Require Device Unlock&quot; setting enabled.</li>
+                <li><strong>Photo library</strong> (via the system <code>PhotosPicker</code>) – to import QR codes from screenshots you select. AuthBand uses Apple&apos;s privacy-preserving picker, which does <strong>not</strong> grant the app access to your photo library. The app only sees the specific images you tap.</li>
+            </ul>
+
+            <h3>Third parties</h3>
+
+            <p>AuthBand has no third-party software dependencies. No SDKs from analytics vendors, ad networks, attribution providers, or anyone else. The only frameworks are Apple&apos;s own (SwiftUI, CryptoKit, WatchConnectivity, LocalAuthentication, AVFoundation, PhotosUI, CoreImage, etc.).</p>
+
+            <h3>Crash reports</h3>
+
+            <p>AuthBand does not ship a crash reporting SDK. If a crash happens on your device, the standard Apple crash report machinery may forward an anonymous, system-collected report to Apple if you have &quot;Share with App Developers&quot; enabled in iOS Settings. The developer may see those reports in App Store Connect. AuthBand itself does not collect, transmit, or store anything.</p>
+
+            <h3>Account deletion</h3>
+
+            <p>There is no account to delete. To remove all stored secrets:</p>
+
+            <ul>
+                <li>Open <strong>Settings → Storage → Delete All Accounts</strong> inside the app, or</li>
+                <li>Delete the app from your iPhone. iOS automatically removes the Keychain entries (because they use <code>WhenPasscodeSetThisDeviceOnly</code> accessibility).</li>
+            </ul>
+
+            <h3>Source code</h3>
+
+            <p>AuthBand is open source. The full source code is published at <a href="https://github.com/antonlukin/auth-band" target="_blank" rel="noopener">GitHub</a>. You can read it, build it, and verify these claims against the implementation.</p>
+
+            <h3>Changes to this policy</h3>
+
+            <p>If this policy changes in a meaningful way, the change will be reflected here and the <strong>Effective date</strong> above will be updated. Older versions remain in the git history of the source repository.</p>
+
+            <h3>Contact</h3>
+
+            <p>Open issue at <a href="https://github.com/antonlukin/auth-band/issues" target="_blank" rel="noopener">GitHub</a> or get in touch via <a href="https://t.me/lukin" target="_blank" rel="noopener">Telegram</a>.</p>
+        </section>
+    </main>
+</body>
+
+</html>
