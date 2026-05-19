@@ -38,16 +38,10 @@
       background-color: #fff;
     }
 
-    @media screen and (max-width: 767px) {
-        body {
-            font-size: 0.9375rem;
-        }
-    }
-
     main {
       max-width: 50rem;
       margin: 0 auto;
-      padding: 1.25rem;
+      padding: 1.25rem 1.75rem;
     }
 
     section {
@@ -105,7 +99,7 @@
 
     code {
       font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-      font-size: 0.9em;
+      font-size: 0.9375em;
       background: #f4f4f5;
       padding: 0.1em 0.35em;
       border-radius: 0.2em;
@@ -118,11 +112,33 @@
       margin: -0.5rem 0;
     }
 
+    .back {
+      display: block;
+      color: #666;
+      font-size: 0.875rem;
+      padding-bottom: 1rem;
+
+      border-bottom: solid 1px #e0e0e0;
+    }
+
+    .back a {
+      border-bottom: 0;
+    }
+
+    .back a:hover {
+      color: #000;
+    }
+
     .links {
       display: flex;
       flex-wrap: wrap;
       gap: 0.5rem 1.25rem;
       margin: 0 0 1rem;
+    }
+
+    .subtitle {
+      margin: 0 0 2rem;
+      color: #666;
     }
 
     .phones,
@@ -144,6 +160,14 @@
     }
 
     @media (max-width: 767px) {
+      body {
+          font-size: 0.9375rem;
+      }
+
+      h1 {
+        margin-top: 1.5rem;
+      }
+
       .phones,
       .watches {
         display: flex;
@@ -175,10 +199,14 @@
 <body>
     <main>
         <section>
-            <h1>AuthBand</h1>
+            <div class="back">
+              <a href="/">← lukin.me</a>
+            </div>
 
-            <p>A TOTP authenticator built for Apple Watch. Add accounts on iPhone, glance at codes on your wrist.</p>
-            <p>No network, no cloud, no third-party SDKs. Secrets live in the iOS Keychain, bound to your device passcode. Sync between iPhone and Apple Watch goes through Apple&apos;s peer-to-peer channel – there is no server in the middle.</p>
+            <h1>AuthBand – Apple Watch Authenticator</h1>
+            <p class="subtitle">Add accounts on iPhone, glance at codes on your wrist</p>
+
+            <p>A TOTP authenticator built for Apple Watch. No network, no cloud, no third-party SDKs. Secrets live in the iOS Keychain, bound to your device passcode. Sync between iPhone and Apple Watch goes through Apple&apos;s peer-to-peer channel – there is no server in the middle.</p>
 
             <p class="links">
                 <a href="https://apps.apple.com/app/authband/id6770057950" target="_blank" rel="noopener">Download on the App Store</a>
